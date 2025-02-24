@@ -2,6 +2,16 @@
 {-# LANGUAGE BinaryLiterals #-}
 {-# LANGUAGE NumericUnderscores #-}
 
+-- |
+-- Module: Crypto.KDF.PBKDF
+-- Copyright: (c) 2025 Jared Tobin
+-- License: MIT
+-- Maintainer: Jared Tobin <jared@ppad.tech>
+--
+-- A pure PBKDF2 (password-based key derivation
+-- function) implementation, as specified by
+-- [RFC2898](https://datatracker.ietf.org/doc/html/rfc2898).
+
 module Crypto.KDF.PBKDF where
 
 import Data.Bits ((.>>.), (.&.))
@@ -15,6 +25,9 @@ import Data.Word (Word32, Word64)
 
 -- | A HMAC function, taking a key as the first argument and the input
 --   value as the second, producing a MAC digest.
+--
+--   (RFC2898 specifically requires a "pseudorandom function" of two
+--   arguments, but in practice this will usually be a HMAC function.)
 --
 --   >>> import qualified Crypto.Hash.SHA256 as SHA256
 --   >>> :t SHA256.hmac
@@ -36,15 +49,23 @@ ser32 w =
       !w2 = fi (w .>>. 08) .&. mask
       !w3 = fi w .&. mask
   in  BS.cons w0 (BS.cons w1 (BS.cons w2 (BS.singleton w3)))
+{-# INLINE ser32 #-}
 
 -- bytewise xor on bytestrings
 xor :: BS.ByteString -> BS.ByteString -> BS.ByteString
 xor = BS.packZipWith B.xor
 {-# INLINE xor #-}
 
--- pbkdf2
+-- | Derive a key from a secret via the PBKDF2 key derivation function.
+--
+--   >>> :set -XOverloadedStrings
+--   >>> import qualified Crypto.Hash.SHA256 as SHA256
+--   >>> import qualified Data.ByteString as BS
+--   >>> import qualified Data.ByteString.Base16 as B16
+--   >>> BS.take 16 (B16.encode (derive SHA256.hmac "passwd" "salt" 1 64))
+--   "55ac046e56e3089f"
 derive
-  :: HMAC          -- ^ HMAC function
+  :: HMAC          -- ^ pseudo-random function (HMAC)
   -> BS.ByteString -- ^ password
   -> BS.ByteString -- ^ salt
   -> Word64        -- ^ iteration count
