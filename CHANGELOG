@@ -1,5 +1,8 @@
 # Changelog
 
+- 0.1.1 (2025-02-24)
+  * Minor Haddock fixes.
+
 - 0.1.0 (2025-02-24)
   * Initial release, supporting a generic RFC2898 PBKDF2 function.
 
