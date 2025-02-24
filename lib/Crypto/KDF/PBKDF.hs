@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK prune #-}
 {-# LANGUAGE BangPatterns #-}
 {-# LANGUAGE BinaryLiterals #-}
 {-# LANGUAGE NumericUnderscores #-}
@@ -12,7 +13,13 @@
 -- function) implementation, as specified by
 -- [RFC2898](https://datatracker.ietf.org/doc/html/rfc2898).
 
-module Crypto.KDF.PBKDF where
+module Crypto.KDF.PBKDF (
+    -- * HMAC synonym
+    HMAC
+
+    -- * PBKDF2
+  , derive
+  )where
 
 import Data.Bits ((.>>.), (.&.))
 import qualified Data.Bits as B
