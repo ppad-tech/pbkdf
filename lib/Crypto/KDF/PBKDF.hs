@@ -42,6 +42,7 @@ xor :: BS.ByteString -> BS.ByteString -> BS.ByteString
 xor = BS.packZipWith B.xor
 {-# INLINE xor #-}
 
+-- pbkdf2
 derive
   :: HMAC          -- ^ HMAC function
   -> BS.ByteString -- ^ password
@@ -69,7 +70,7 @@ derive prf p s c dklen
 
           org = prf p (s <> ser32 i)
 
-      in  go 0 org org
+      in  go 1 org org
     {-# INLINE f #-}
 
     loop !acc !i
