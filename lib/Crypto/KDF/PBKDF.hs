@@ -25,6 +25,7 @@ import Data.Bits ((.>>.), (.&.))
 import qualified Data.Bits as B
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Builder as BSB
+import qualified Data.ByteString.Builder.Extra as BE
 import Data.Word (Word32, Word64)
 
 -- NB following synonym really only exists to make haddocks more
@@ -105,8 +106,13 @@ derive prf p s c dklen
       | i == l =
           let t = f i
               fin = BS.take r t
-          in  BS.toStrict . BSB.toLazyByteString $
-                acc <> BSB.byteString fin
+          in  BS.toStrict $
+                if   dklen <= 128
+                then BE.toLazyByteStringWith
+                       (BE.safeStrategy 128 BE.smallChunkSize) mempty $
+                       acc <> BSB.byteString fin
+                else BSB.toLazyByteString $
+                       acc <> BSB.byteString fin
       | otherwise =
           let t = f i
               nacc = acc <> BSB.byteString t
