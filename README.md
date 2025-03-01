@@ -2,6 +2,7 @@
 
 [![](https://img.shields.io/hackage/v/ppad-pbkdf?color=blue)](https://hackage.haskell.org/package/ppad-pbkdf)
 ![](https://img.shields.io/badge/license-MIT-brightgreen)
+[![](https://img.shields.io/badge/haddock-pbkdf-lightblue)](https://docs.ppad.tech/pbkdf)
 
 A password-based key derivation function (PBKDF2) per
 [RFC2898](https://datatracker.ietf.org/doc/html/rfc2898).
