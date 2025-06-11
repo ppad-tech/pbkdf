@@ -21,6 +21,7 @@ module Crypto.KDF.PBKDF (
   , derive
   )where
 
+import Control.Monad (guard)
 import Data.Bits ((.>>.), (.&.))
 import qualified Data.Bits as B
 import qualified Data.ByteString as BS
@@ -70,7 +71,8 @@ xor = BS.packZipWith B.xor
 --   >>> import qualified Crypto.Hash.SHA256 as SHA256
 --   >>> import qualified Data.ByteString as BS
 --   >>> import qualified Data.ByteString.Base16 as B16
---   >>> BS.take 16 (B16.encode (derive SHA256.hmac "passwd" "salt" 1 64))
+--   >>> let Just key = derive SHA256.hmac "passwd" "salt" 1 64
+--   >>> BS.take 16 (B16.encode key)
 --   "55ac046e56e3089f"
 derive
   :: HMAC          -- ^ pseudo-random function (HMAC)
@@ -78,12 +80,10 @@ derive
   -> BS.ByteString -- ^ salt
   -> Word64        -- ^ iteration count
   -> Word32        -- ^ bytelength of derived key (max 0xffff_ffff * hlen)
-  -> BS.ByteString -- ^ derived key
-derive prf p s c dklen
-    | dklen > 0xffff_ffff * fi hlen =      -- 2 ^ 32 - 1
-        error "ppad-pbkdf (derive): derived key too long"
-    | otherwise =
-        loop mempty 1
+  -> Maybe BS.ByteString -- ^ derived key
+derive prf p s c dklen = do
+    guard (dklen <= 0xffff_ffff * fi hlen)
+    pure (loop mempty 1)
   where
     !hlen = BS.length (prf mempty mempty)
     !l = ceiling (fi dklen / fi hlen :: Double) :: Word32

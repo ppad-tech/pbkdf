@@ -21,7 +21,7 @@ A sample GHCi session:
   >
   > -- derive a 32-byte key from a secret
   > KDF.derive SHA256.hmac "my password" "my salt" 100 32
-  "\"\NAKqxp\165S\t\212i\139\SUB(\132\176\204\224<\164\177\144\&1D\209\175\145\139[K\159h\205"
+  Just "\"\NAKqxp\165S\t\212i\139\SUB(\132\176\204\224<\164\177\144\&1D\209\175\145\139[K\159h\205"
 ```
 
 ## Documentation
