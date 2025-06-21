@@ -1,5 +1,9 @@
 # Changelog
 
+- 0.2.0 (2025-06-21)
+  * The 'derive' function is now total, returning 'Nothing' when supplied
+    with bad inputs.
+
 - 0.1.1 (2025-02-24)
   * Minor Haddock fixes.
 

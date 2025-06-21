@@ -34,23 +34,21 @@ Haddocks (API documentation, etc.) are hosted at
 The aim is best-in-class performance for pure, highly-auditable Haskell
 code.
 
-Current benchmark figures on my mid-2020 MacBook Air look like (use
+Current benchmark figures on an M4 Silicon MacBook Air look like (use
 `cabal bench` to run the benchmark suite):
 
 ```
   benchmarking ppad-pbkdf/PBKDF-SHA256/derive (outlen 32)
-  time                 533.2 μs   (490.9 μs .. 579.9 μs)
-                       0.967 R²   (0.941 R² .. 0.993 R²)
-  mean                 494.0 μs   (480.3 μs .. 518.3 μs)
-  std dev              57.73 μs   (38.72 μs .. 98.81 μs)
-  variance introduced by outliers: 81% (severely inflated)
+  time                 216.9 μs   (216.3 μs .. 217.3 μs)
+                       1.000 R²   (1.000 R² .. 1.000 R²)
+  mean                 215.7 μs   (215.3 μs .. 216.1 μs)
+  std dev              1.446 μs   (1.275 μs .. 1.819 μs)
 
   benchmarking ppad-pbkdf/PBKDF-SHA512/derive (outlen 32)
-  time                 241.2 μs   (233.4 μs .. 249.6 μs)
-                       0.991 R²   (0.987 R² .. 0.995 R²)
-  mean                 233.6 μs   (227.8 μs .. 240.1 μs)
-  std dev              20.22 μs   (16.95 μs .. 24.39 μs)
-  variance introduced by outliers: 74% (severely inflated)
+  time                 113.5 μs   (113.3 μs .. 113.6 μs)
+                       1.000 R²   (1.000 R² .. 1.000 R²)
+  mean                 113.4 μs   (113.3 μs .. 113.5 μs)
+  std dev              303.1 ns   (256.5 ns .. 398.4 ns)
 ```
 
 ## Security
