@@ -14,6 +14,11 @@ description:
   A pure implementation of the password-based key derivation function PBKDF2,
   per RFC 2898.
 
+flag llvm
+  description: Use GHC's LLVM backend.
+  default:     False
+  manual:      True
+
 source-repository head
   type:     git
   location: git.ppad.tech/pbkdf.git
@@ -23,6 +28,8 @@ library
   hs-source-dirs:   lib
   ghc-options:
       -Wall
+  if flag(llvm)
+    ghc-options: -fllvm -O2
   exposed-modules:
       Crypto.KDF.PBKDF
   build-depends:
