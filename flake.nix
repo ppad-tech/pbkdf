@@ -40,9 +40,13 @@
 
         pkgs = import nixpkgs { inherit system; };
         hlib = pkgs.haskell.lib;
-        llvm = pkgs.llvmPackages_15.llvm;
+        llvm = pkgs.llvmPackages_19.llvm;
 
         base16 = ppad-base16.packages.${system}.default;
+        base16-llvm =
+          hlib.addBuildTools
+            (hlib.enableCabalFlag base16 "llvm")
+            [ llvm ];
 
         sha256 = ppad-sha256.packages.${system}.default;
         sha256-llvm =
@@ -56,8 +60,8 @@
             (hlib.enableCabalFlag sha512 "llvm")
             [ llvm ];
 
-        hpkgs = pkgs.haskell.packages.ghc981.extend (new: old: {
-          ppad-base16 = base16;
+        hpkgs = pkgs.haskell.packages.ghc910.extend (new: old: {
+          ppad-base16 = base16-llvm;
           ppad-sha256 = sha256-llvm;
           ppad-sha512 = sha512-llvm;
           ${lib} = new.callCabal2nix lib ./. {

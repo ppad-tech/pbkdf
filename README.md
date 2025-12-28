@@ -39,16 +39,16 @@ Current benchmark figures on an M4 Silicon MacBook Air look like (use
 
 ```
   benchmarking ppad-pbkdf/PBKDF-SHA256/derive (outlen 32)
-  time                 58.19 μs   (58.14 μs .. 58.25 μs)
+  time                 47.13 μs   (47.11 μs .. 47.16 μs)
                        1.000 R²   (1.000 R² .. 1.000 R²)
-  mean                 58.39 μs   (58.35 μs .. 58.44 μs)
-  std dev              155.6 ns   (130.8 ns .. 193.7 ns)
+  mean                 47.17 μs   (47.15 μs .. 47.20 μs)
+  std dev              90.60 ns   (76.55 ns .. 106.6 ns)
 
   benchmarking ppad-pbkdf/PBKDF-SHA512/derive (outlen 32)
-  time                 44.01 μs   (43.92 μs .. 44.14 μs)
+  time                 32.71 μs   (32.69 μs .. 32.75 μs)
                        1.000 R²   (1.000 R² .. 1.000 R²)
-  mean                 44.09 μs   (44.02 μs .. 44.19 μs)
-  std dev              270.4 ns   (209.1 ns .. 345.1 ns)
+  mean                 32.80 μs   (32.76 μs .. 32.85 μs)
+  std dev              144.0 ns   (96.49 ns .. 207.1 ns)
 ```
 
 ## Security
