@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               ppad-pbkdf
-version:            0.2.1
+version:            0.2.2
 synopsis:           A password-based key derivation function
 license:            MIT
 license-file:       LICENSE
@@ -53,8 +53,8 @@ test-suite pbkdf-tests
     , bytestring
     , ppad-base16
     , ppad-pbkdf
-    , ppad-sha256
-    , ppad-sha512
+    , ppad-sha256 >= 0.3 && < 0.4
+    , ppad-sha512 >= 0.2 && < 0.4
     , tasty
     , tasty-hunit
     , text
@@ -73,6 +73,6 @@ benchmark pbkdf-bench
     , bytestring
     , criterion
     , ppad-pbkdf
-    , ppad-sha256
-    , ppad-sha512
+    , ppad-sha256 >= 0.3 && < 0.4
+    , ppad-sha512 >= 0.2 && < 0.3
 
